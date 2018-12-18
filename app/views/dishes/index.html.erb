@@ -1,0 +1,11 @@
+
+<% @dishes.each do |dish| %>
+  <tr>
+    <td><%= dish.name %></td>
+    <td><%= dish.price %></td>
+    <% dish.allergies.order("id").each do |allergy| %>
+      <td><%= allergy.name %></td>、
+    <% end %>
+  </tr>
+  </br>
+<% end %>
