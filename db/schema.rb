@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181216071539) do
+ActiveRecord::Schema.define(version: 20181218075356) do
 
   create_table "allergies", force: :cascade do |t|
     t.string   "name",       null: false
@@ -29,6 +29,35 @@ ActiveRecord::Schema.define(version: 20181216071539) do
   add_index "allergy_dishes", ["allergy_id"], name: "index_allergy_dishes_on_allergy_id"
   add_index "allergy_dishes", ["dish_id"], name: "index_allergy_dishes_on_dish_id"
 
+  create_table "box_kinds", force: :cascade do |t|
+    t.string   "name",       null: false
+    t.integer  "capacity",   null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "boxes", force: :cascade do |t|
+    t.integer  "box_kind_id", null: false
+    t.integer  "order_id",    null: false
+    t.integer  "rice",        null: false
+    t.integer  "number",      null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "boxes", ["box_kind_id"], name: "index_boxes_on_box_kind_id"
+  add_index "boxes", ["order_id"], name: "index_boxes_on_order_id"
+
+  create_table "customers", force: :cascade do |t|
+    t.string   "name",         null: false
+    t.string   "telephone",    null: false
+    t.string   "mail_address", null: false
+    t.string   "username",     null: false
+    t.string   "password",     null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
   create_table "dishes", force: :cascade do |t|
     t.string   "name",                      null: false
     t.integer  "price",                     null: false
@@ -37,6 +66,25 @@ ActiveRecord::Schema.define(version: 20181216071539) do
     t.boolean  "potential",  default: true, null: false
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.integer  "customer_id",                 null: false
+    t.boolean  "status",      default: false, null: false
+    t.datetime "time",                        null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
+  add_index "orders", ["customer_id"], name: "index_orders_on_customer_id"
+
+  create_table "workers", force: :cascade do |t|
+    t.string   "name",                       null: false
+    t.boolean  "admin",      default: false, null: false
+    t.string   "username",                   null: false
+    t.string   "password",                   null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
 end
