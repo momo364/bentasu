@@ -1,3 +1,3 @@
 class SaleManagement < ActiveRecord::Base
-  belong_to :dish
+  belongs_to :dish
 end

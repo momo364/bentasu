@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181220074651) do
+ActiveRecord::Schema.define(version: 20181220080212) do
 
   create_table "allergies", force: :cascade do |t|
     t.string   "name",       null: false
@@ -28,6 +28,13 @@ ActiveRecord::Schema.define(version: 20181220074651) do
 
   add_index "allergy_dishes", ["allergy_id"], name: "index_allergy_dishes_on_allergy_id"
   add_index "allergy_dishes", ["dish_id"], name: "index_allergy_dishes_on_dish_id"
+
+  create_table "box_dishes", force: :cascade do |t|
+    t.integer  "box_id",     null: false
+    t.integer  "dish_id",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "box_kinds", force: :cascade do |t|
     t.string   "name",       null: false
