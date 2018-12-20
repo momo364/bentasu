@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181218075356) do
+ActiveRecord::Schema.define(version: 20181220074651) do
 
   create_table "allergies", force: :cascade do |t|
     t.string   "name",       null: false
@@ -58,6 +58,14 @@ ActiveRecord::Schema.define(version: 20181218075356) do
     t.datetime "updated_at",   null: false
   end
 
+  create_table "dish_images", force: :cascade do |t|
+    t.integer  "dish_id",      null: false
+    t.binary   "data",         null: false
+    t.string   "content_type", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
   create_table "dishes", force: :cascade do |t|
     t.string   "name",                      null: false
     t.integer  "price",                     null: false
@@ -77,6 +85,15 @@ ActiveRecord::Schema.define(version: 20181218075356) do
   end
 
   add_index "orders", ["customer_id"], name: "index_orders_on_customer_id"
+
+  create_table "sale_managements", force: :cascade do |t|
+    t.integer  "dish_id",                    null: false
+    t.integer  "planned_number", default: 0, null: false
+    t.integer  "made_number",    default: 0, null: false
+    t.integer  "sold_number",    default: 0, null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
 
   create_table "workers", force: :cascade do |t|
     t.string   "name",                       null: false

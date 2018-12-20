@@ -1,0 +1,2 @@
+class BoxKindsController < ApplicationController
+end

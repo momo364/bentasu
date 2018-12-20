@@ -1,2 +1,0 @@
-class CustommersController < ApplicationController
-end

@@ -7,4 +7,9 @@ Rails.application.routes.draw do
   resources :orders do 
     resources :boxes
   end
+  resources :box_kinds do
+    resources :boxes
+  end
+  resources :workers
+  resources :sale_managements
 end
