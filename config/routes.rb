@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root "dishes#index"
+  root "top#index"
   resources :customers do 
     resources :orders
   end
@@ -10,6 +10,11 @@ Rails.application.routes.draw do
   resources :box_kinds do
     resources :boxes
   end
-  resources :workers
+  resources :workers do 
+    collection do 
+      get :login
+    end
+  end
   resources :sale_managements
+  resource :session, only: [:create,:destroy]
 end

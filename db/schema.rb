@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181220080212) do
+ActiveRecord::Schema.define(version: 20181224081203) do
 
   create_table "allergies", force: :cascade do |t|
     t.string   "name",       null: false
@@ -103,12 +103,12 @@ ActiveRecord::Schema.define(version: 20181220080212) do
   end
 
   create_table "workers", force: :cascade do |t|
-    t.string   "name",                       null: false
-    t.boolean  "admin",      default: false, null: false
-    t.string   "username",                   null: false
-    t.string   "password",                   null: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.string   "name",                            null: false
+    t.boolean  "admin",           default: false, null: false
+    t.string   "username",                        null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.string   "hashed_password"
   end
 
 end

@@ -4,7 +4,6 @@ class CreateWorkers < ActiveRecord::Migration
       t.string :name, null: false
       t.boolean :admin, null: false, default: false
       t.string :username, null: false
-      t.string :password, null: false
       t.timestamps null: false
     end
   end

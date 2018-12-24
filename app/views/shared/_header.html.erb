@@ -1,0 +1,14 @@
+<span class = "img_center">
+  <%= image_tag("bentasu_logo.jpeg",size: "250x100", alt:"Ben+") %>
+  <span class = "loginbutton">
+     <%= link_to "ログイン","#" unless current_worker %>
+     <%= link_to "管理者ログイン",:controller => "workers",
+          :action => "login" unless current_worker %>
+     <% if current_worker %>
+     <span class="worker">
+     <%= link_to current_worker.name+"さん",:session,method: :delete,data: {confirm: "ログアウトしますか" } %>
+     </span>
+     <% end %>
+  </span>
+</span>
+<% if flash.alert %><%= flash.alert %><% end %>
