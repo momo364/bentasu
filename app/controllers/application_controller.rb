@@ -4,5 +4,9 @@ class ApplicationController < ActionController::Base
   def current_worker
     Worker.find_by(id: session[:worker_id]) if session[:worker_id]
   end
-  helper_method :current_worker
+
+  def current_customer
+    Customer.find_by(id: session[:customer_id]) if session[:customer_id]
+  end
+  helper_method :current_worker,:current_customer
 end
