@@ -1,4 +1,8 @@
 <% if flash.alert %><p class ="alert"><%= flash.alert %></p><% end %>
+
+<% if flash.notice %>
+<p class ="notice"><%= flash.notice %></p>
+<% end %>
 <p>お客様ログインページ</p>
 <%= form_tag :session_customer do %>
 <table id = "login_form">
@@ -16,3 +20,7 @@
   </tr>
 </table>
 <% end %> 
+
+<p><%= link_to "会員登録をされていない方はこちら",:controller => "customers",
+      :action => "new"  %></p>
+<p><%= link_to "トップページへ戻る", :root %></p>

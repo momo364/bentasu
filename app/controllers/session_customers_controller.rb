@@ -6,7 +6,7 @@ class SessionCustomersController < ApplicationController
     else
       flash.alert = "ユーザ名とパスワードが一致しません"
     end
-    redirect_to :root
+    redirect_to controller: 'customers',action: 'login' 
   end
 
   def destroy
