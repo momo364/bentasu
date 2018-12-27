@@ -1,6 +1,7 @@
 class Customer < ActiveRecord::Base
   has_many :orders, dependent: :destroy
-  
+  validates :password, presence: {on: :create},
+     confirmation: {allow_blank: true} 
   attr_accessor :password, :password_confirmation
 
   def password=(val)
