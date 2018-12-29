@@ -1,0 +1,22 @@
+<% @page_title = "お弁当を選ぶ" %>
+
+<p>2種類のお弁当箱からお選びください</p>
+
+<span class = "boxkind_table">
+<table>
+  <tr>
+  <% @boxkinds.each do |boxkind| %>
+    <td><%= boxkind.name %></td>
+  <% end %>
+  </tr>
+  <tr>
+  <% @box = Box.new(box_kind_id: 1,rice: 1,number:1)  %>
+  <%= form_for @box, :url => {:controller => 'boxes',:action => 'create' } do |form| %>
+    <td><%= form.radio_button :box_kind_id, 1 %></td> 
+    <td><%= form.radio_button :box_kind_id, 2 %></td> 
+  </tr>
+</table>
+  <p><%= form.submit "おかず選択に移る" %></p>
+  <% end %>
+
+<p><%= link_to "トップページに戻る", :root %> 

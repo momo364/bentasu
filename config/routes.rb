@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       get :login
     end
   end
+  resources :boxes,only: [:create]
   resources :sale_managements
   resource :session, only: [:create,:destroy]
   resource :session_customer, only: [:create, :destroy]
