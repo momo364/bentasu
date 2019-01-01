@@ -14,6 +14,8 @@
   <%= form_for @box, :url => {:controller => 'boxes',:action => 'create' } do |form| %>
     <td><%= form.radio_button :box_kind_id, 1 %></td> 
     <td><%= form.radio_button :box_kind_id, 2 %></td> 
+    <%= form.hidden_field :rice,value: 1 %>
+    <%= form.hidden_field :number,value: 1 %>
   </tr>
 </table>
   <p><%= form.submit "おかず選択に移る" %></p>

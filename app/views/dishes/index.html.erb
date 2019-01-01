@@ -6,6 +6,14 @@
     <% dish.allergies.order("id").each do |allergy| %>
       <td><%= allergy.name %></td>、
     <% end %>
+    <%= link_to "選択する",[:select,dish],method: :patch, class: "dishselect" %>
   </tr>
   </br>
+<% end %>
+<p><%= session[:box_kind_id] %></p>
+<p><%= session[:box_id] %></p>
+
+<% @okazu = BoxDish.all %>
+<% @okazu.each do |okazu| %>
+  <%= okazu.box_id %>　<%= okazu.dish_id %>
 <% end %>

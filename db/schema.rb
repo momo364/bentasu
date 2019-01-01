@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 20181226141007) do
 
   create_table "boxes", force: :cascade do |t|
     t.integer  "box_kind_id", null: false
-    t.integer  "order_id",    null: false
+    t.integer  "order_id"
     t.integer  "rice",        null: false
     t.integer  "number",      null: false
     t.datetime "created_at",  null: false

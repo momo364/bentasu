@@ -6,13 +6,14 @@ Rails.application.routes.draw do
       get :login
     end
   end
-  resources :dishes
+  resources :dishes do
+    member { patch :select }
+    collection { get :selected }
+  end
   resources :orders do 
     resources :boxes
   end
-  resources :box_kinds do
-    resources :boxes
-  end
+  resources :box_kinds
   resources :workers do 
     collection do 
       get :login
