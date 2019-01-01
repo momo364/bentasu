@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     end
   end
   resources :dishes do
-    member { patch :select }
+    member { patch :select,:unselect }
     collection { get :selected }
   end
   resources :orders do 

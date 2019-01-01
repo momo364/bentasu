@@ -6,13 +6,18 @@
     <% dish.allergies.order("id").each do |allergy| %>
       <td><%= allergy.name %></td>、
     <% end %>
+    <% if session[:capamax] == false %>
     <%= link_to "選択する",[:select,dish],method: :patch, class: "dishselect" %>
+    <% end %>
+    <% if BoxDish.where(box_id: session[:box_id],dish_id: dish.id).count != 0 %>
+    <%= link_to "選択解除",[:unselect,dish],method: :patch, class: "dishunselect" %>
+    <% end %>
   </tr>
   </br>
 <% end %>
 <p><%= session[:box_kind_id] %></p>
 <p><%= session[:box_id] %></p>
-
+<p><%= session[:capamax] %></p>
 <% @okazu = BoxDish.all %>
 <% @okazu.each do |okazu| %>
   <%= okazu.box_id %>　<%= okazu.dish_id %>
