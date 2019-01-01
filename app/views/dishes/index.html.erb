@@ -15,6 +15,11 @@
   </tr>
   </br>
 <% end %>
+
+<% if session[:capamax] == true %>
+<p><%= link_to "注文確認画面へ",{:controller => "dishes",:action => "selected"} %></p>
+<% end %>
+
 <p><%= session[:box_kind_id] %></p>
 <p><%= session[:box_id] %></p>
 <p><%= session[:capamax] %></p>

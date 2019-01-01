@@ -26,4 +26,9 @@ class DishesController < ApplicationController
     @dish.boxes.destroy(Box.find(session[:box_id]))
     redirect_to controller: 'dishes' , action: 'index'
   end
+
+  def selected
+    @box = Box.find(session[:box_id])
+    @selectdishes = @box.dishes 
+  end
 end
