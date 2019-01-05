@@ -1,0 +1,16 @@
+<p><%= current_customer.name %>さんの注文履歴</p>
+<% @yet = 0 %>
+<% @comp = 0 %>
+<% @histories.each do |history| %> 
+  <% if history.status == true %>
+    <% @comp = @comp + 1 %>
+  <% else %>
+    <% @yet = @yet + 1 %>
+  <% end %>
+<% end %>
+
+<p>準備中の注文：<%= @yet %></p>
+<p>完了した注文：<%= @comp %></p>
+
+<p><%= link_to "ショッピングカートの中身を見る",:controller => "dishes", :action => "selected" %></p>
+<p><%= link_to "自分の情報を変更する","#" %></p>

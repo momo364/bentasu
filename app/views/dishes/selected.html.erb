@@ -1,8 +1,23 @@
 <% @page_title = "カートの中身" %>
 <h1><%= @page_title %></h1>
-
+<% @cnt = 0 %>
 <% if @selectdishes.present? %>
-  <% @selectdishes.each do |okazu| %>
-    <p><%= okazu.name %></p>
-  <% end %>
+    <% @selectdishes.each do |okazu| %>
+      <% @cnt = @cnt + 1 %>
+      <p>お弁当<%= @cnt %></p>
+      <% okazu.each do |d| %>
+        <p><%= d.name %></p>
+      <% end %>
+    <% end %>
+<% else %>
+  <p>カートに商品がありません</p>
 <% end %>
+
+<% if current_customer.present? %>
+  <p><%= link_to "注文を確定する",{ :controller => "orders", :action => "create"}, method: :post %></p>
+  <p><%= link_to "お弁当を追加する","#" %></p>
+<% else %>
+  <p><%= link_to "注文を確定する",{ :controller => "customers", :action => "login" }  %></p>
+  <p><%= link_to "お弁当を追加する", :controller => "customers", :action => "login"  %></p>
+<% end %>
+

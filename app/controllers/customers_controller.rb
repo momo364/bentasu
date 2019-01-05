@@ -11,4 +11,8 @@ class CustomersController < ApplicationController
   def new 
     @customer = Customer.new(name: "")
   end
+
+  def history
+    @histories = Order.where(customer_id:current_customer.id)
+  end
 end

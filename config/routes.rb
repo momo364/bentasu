@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     resources :orders
     collection do 
       get :login
+      get :history
     end
   end
   resources :dishes do
@@ -12,6 +13,9 @@ Rails.application.routes.draw do
   end
   resources :orders do 
     resources :boxes
+    collection do
+      get :complete
+    end
   end
   resources :box_kinds
   resources :workers do 

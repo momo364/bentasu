@@ -12,7 +12,7 @@
      <% end %>
      <span class = "customer" %>
      <% if current_customer %>
-     <%= link_to current_customer.name+"さん",:session_customer,method: :delete,data: {confirm: "ログアウトしますか？" } %>
+     <%= link_to current_customer.name+"さん",{:controller => "customers", :action => "history"} ,data: {confirm: "ログアウトしますか？" } %>
      <% end %>
      </span>
   </span>
