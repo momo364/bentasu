@@ -1,10 +1,11 @@
 <p>おかず一覧ページ</p>
+<table>
 <% @dishes.each do |dish| %>
   <tr>
     <td><%= dish.name %></td>
     <td><%= dish.price %></td>
     <% dish.allergies.order("id").each do |allergy| %>
-      <td><%= allergy.name %></td>、
+      <td><%= allergy.name %>・</td>
     <% end %>
     <% unless current_worker.present? %>
       <% if session[:capamax] == false %>
@@ -16,6 +17,41 @@
     <% end %>
   </tr>
   </br>
+<% end %>
+</table>
+
+<% @dish = Dish.new() %>
+<%= render "shared/errors", obj: @dish %>
+<% if current_worker.present? %>
+<%= form_for @dish ,:url => {:action => 'create'} do  |form| %>
+<table class = "attr" >
+  <tr>
+    <th><%= form.label :name, "料理名" %></th>
+    <td><%= form.text_field :name %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :price, "値段" %></th>
+    <td><%= form.text_field :price %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :calorie, "カロリー" %></th>
+    <td><%= form.text_field :calorie %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :category, "カテゴリー" %></th>
+    <td>
+      <%= form.radio_button :category,0 %>
+      <%= form.label :category_0, "和食" %>
+      <%= form.radio_button :category,1 %>
+      <%= form.label :category_1, "洋食" %>
+      <%= form.radio_button :category,2 %>
+      <%= form.label :category_2, "中華" %>
+    </td>
+  </tr>
+  <%= form.hidden_field :potential, value:true %>
+</table>
+<p><%= form.submit "登録" %></p>
+<% end %>
 <% end %>
 
 <% if session[:capamax] == true %>

@@ -1,3 +1,4 @@
+
 <h1>管理者一覧</h1>
 
 <table>
@@ -14,3 +15,37 @@
  </tr>
  <% end %>
 </table>
+
+<p>新規登録フォーム</p>
+<% @worker = Worker.new() %>
+<%= render "shared/errors", obj: @worker %>
+<%= form_for @worker, :url => {:action => 'create'} do |form| %>
+<table class = "attr" >
+  <tr>
+    <th><%= form.label :name, "氏名" %></th>
+    <td><%= form.text_field :name %></td>
+  </tr>
+  <tr>
+    <th>性別</th>
+    <td>
+      <%= form.radio_button :admin,true %>
+      <%= form.label :admin_true, "管理者" %>
+      <%= form.radio_button :admin,false %>
+      <%= form.label :admin_false, "キッチン" %>
+    </td>
+  </tr>
+  <tr>
+    <th><%= form.label :username, "ユーザ名" %></th>
+    <td><%= form.text_field :username %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :password, "パスワード" %></th>
+    <td><%= form.password_field :password %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :password_confirmation, "パスワード確認" %></th>
+    <td><%= form.password_field :password_confirmation %></td>
+  </tr>
+</table>
+<p><%= form.submit "新規登録" %></p>
+<% end %>

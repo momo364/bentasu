@@ -9,6 +9,19 @@ class DishesController < ApplicationController
     end
   end
 
+  def new
+    @dish = Dish.new
+  end
+  
+  def create
+    @dish = Dish.new(params[:dish])
+    if @dish.save
+      redirect_to :dishes, notice: "登録しました"
+    else
+      redirect_to 'index'
+    end
+  end
+
   def select
     @len = session[:box_id].size
     @box = Box.find(session[:box_id][@len - 1])
