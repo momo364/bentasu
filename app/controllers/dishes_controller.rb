@@ -1,6 +1,6 @@
 class DishesController < ApplicationController
   def index
-    @dishes = Dish.order(:id)
+    @dishes = Dish.order(:id).search(params[:search])
     if session[:box_id] != nil
       @len = session[:box_id].size
       if BoxDish.where(box_id: session[:box_id][@len - 1]).count == 0
@@ -60,5 +60,8 @@ class DishesController < ApplicationController
     else
       @selectdishes = nil   
     end
+  end
+ 
+  def stop
   end
 end

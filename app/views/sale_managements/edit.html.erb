@@ -1,0 +1,16 @@
+<h1>おかず予定数変更</h1>
+
+
+<%= render "shared/errors", obj: @worker %>
+<%= form_for @sale do |form| %>
+<table class = "attr" >
+  <tr>
+    <th><%= form.label :planned_number, "予定数" %></th>
+    <td><%= form.text_field :planned_number %></td>
+  </tr>
+  <%= form.hidden_field :dish_id, value:@sale.dish_id %>
+  <%= form.hidden_field :made_number, value:@sale.made_number %>
+  <%= form.hidden_field :sold_number, value:@sale.sold_number %>
+</table>
+<p><%= form.submit "更新" %></p>
+<% end %>

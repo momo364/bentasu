@@ -22,8 +22,8 @@
 <div class = "menubar">
   <%= menu_link_to "TOP", :root %>
   <%= menu_link_to "現在の注文を確認","#" %>
-  <%= menu_link_to "おかず検索","#" %>
   <%= menu_link_to "おかず予定数","#" %>
+  <%= menu_link_to "おかず一覧",:controller => "dishes",:action => "index" %>
 </div>
 <% end %>
 
@@ -35,5 +35,4 @@
   <%= menu_link_to "管理者一覧",:controller => "workers", :action => "index" %>
   <%= menu_link_to "顧客一覧",:controller => "customers",:action => "index" %>
 </div>
-
 <% end %>

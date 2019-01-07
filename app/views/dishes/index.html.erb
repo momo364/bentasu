@@ -1,4 +1,10 @@
 <p>おかず一覧ページ</p>
+
+<%= form_tag(dishes_path, :method => 'get' ) do %>
+  <%= text_field_tag :search,params[:search] %>
+  <%= submit_tag 'Search', :name => nil %>
+<% end %>
+
 <table>
 <% @dishes.each do |dish| %>
   <tr>
@@ -9,10 +15,16 @@
     <% end %>
     <% unless current_worker.present? %>
       <% if session[:capamax] == false %>
-      <%= link_to "選択する",[:select,dish],method: :patch, class: "dishselect" %>
+     <td> <%= link_to "選択する",[:select,dish],method: :patch, class: "dishselect" %></td>
       <% end %>
       <% if BoxDish.where(box_id: session[:box_id],dish_id: dish.id).count != 0 %>
-      <%= link_to "選択解除",[:unselect,dish],method: :patch, class: "dishunselect" %>
+      <td><%= link_to "選択解除",[:unselect,dish],method: :patch, class: "dishunselect" %></td>
+      <% end %>
+    <% else %>
+      <td><% @s = SaleManagement.where(dish_id:dish.id).last %><%= @s.planned_number %></td>
+      <td><%= link_to "予定数変更","#" %></td>
+      <% if current_worker.admin == false %>
+      <td><%= link_to "生産ストップ","#" %></td>
       <% end %>
     <% end %>
   </tr>
@@ -22,7 +34,7 @@
 
 <% @dish = Dish.new() %>
 <%= render "shared/errors", obj: @dish %>
-<% if current_worker.present? %>
+<% if current_worker.present? && current_worker.admin == true %>
 <%= form_for @dish ,:url => {:action => 'create'} do  |form| %>
 <table class = "attr" >
   <tr>

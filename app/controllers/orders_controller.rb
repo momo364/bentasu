@@ -18,10 +18,23 @@ class OrdersController < ApplicationController
   end 
   
   def index
-    @orders = Order.all.order(id:"DESC")
+    if current_customer.present?
+      @orders = Order.where(customer_id:current_customer.id)
+    else
+      @orders = Order.all.order(id:"DESC")
+    end
+    @orders
   end
 
   def kitchen_index
-    @orders = Order.where 
+    @orders = Order.where(status: false)
+    @boxes = []
+    @orders.each do |order|
+      @boxes << Box.where(order_id:order.id)
+    end
+    @boxes.each do |box|
+      box.each do |b|
+      end
+    end    
   end
 end
