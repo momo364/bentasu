@@ -9,9 +9,19 @@ class OrdersController < ApplicationController
         @box.save
       end
       session.delete(:box_id)
+      session.delete(:capamax)
+      session.delete(:box_kind_id)
       redirect_to controller: 'orders' ,action: 'complete'
     else
       redirect_to controller: 'dishes', action: 'selected'
     end
   end 
+  
+  def index
+    @orders = Order.all.order(id:"DESC")
+  end
+
+  def kitchen_index
+    @orders = Order.where 
+  end
 end

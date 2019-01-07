@@ -6,11 +6,13 @@
     <% dish.allergies.order("id").each do |allergy| %>
       <td><%= allergy.name %></td>、
     <% end %>
-    <% if session[:capamax] == false %>
-    <%= link_to "選択する",[:select,dish],method: :patch, class: "dishselect" %>
-    <% end %>
-    <% if BoxDish.where(box_id: session[:box_id],dish_id: dish.id).count != 0 %>
-    <%= link_to "選択解除",[:unselect,dish],method: :patch, class: "dishunselect" %>
+    <% unless current_worker.present? %>
+      <% if session[:capamax] == false %>
+      <%= link_to "選択する",[:select,dish],method: :patch, class: "dishselect" %>
+      <% end %>
+      <% if BoxDish.where(box_id: session[:box_id],dish_id: dish.id).count != 0 %>
+      <%= link_to "選択解除",[:unselect,dish],method: :patch, class: "dishunselect" %>
+      <% end %>
     <% end %>
   </tr>
   </br>

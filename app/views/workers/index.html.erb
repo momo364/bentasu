@@ -1,0 +1,16 @@
+<h1>管理者一覧</h1>
+
+<table>
+ <tr>
+   <th>氏名</th>
+   <th>管理者権限</th>
+   <th>ユーザ名</th>
+ </tr>
+ <% @workers.each do |worker| %>
+ <tr>
+  <td><%= worker.name %></td>
+  <td><% if worker.admin == true %>管理者<% else %>キッチン<% end %></td>
+  <td><%= worker.username %></td>
+ </tr>
+ <% end %>
+</table>

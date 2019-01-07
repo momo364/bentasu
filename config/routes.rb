@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     resources :boxes
     collection do
       get :complete
+      get :kitchen_index
     end
   end
   resources :box_kinds

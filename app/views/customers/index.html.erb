@@ -1,0 +1,17 @@
+<h1>顧客一覧</h1>
+
+<table>
+ <tr>
+   <th>氏名</th>
+   <th>電話番号</th>
+   <th>メールアドレス</th>
+ </tr>
+ <% @customers.each do |customer| %>
+ <tr>
+  <td><%= customer.name %></td>
+  <td><%= customer.telephone %></td>
+  <td><%= customer.mail_address %></td>
+  <td><%= link_to "削除", customer, method: :delete, data: {confirm: "本当に削除しますか？" } %></td>
+ </tr>
+ <% end %>
+</table>

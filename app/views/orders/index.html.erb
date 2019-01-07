@@ -1,0 +1,24 @@
+<h1>注文履歴一覧</h1>
+
+<table>
+<tr>
+  <th>注文時刻</th>
+  <th>注文内容</th>
+</tr>
+<% @orders.each do |order| %>
+<tr>
+  <td><%= order.time %></td>
+   <% @boxes = Box.where(order_id:order.id) %>
+        <% @boxes.each do |box| %><td>
+          <% @dishes = [] %>
+          <% @dishes << box.dishes %>
+          <% @dishes.each do |d| %>
+             <% d.each do |okazu| %>
+               <%= okazu.name %><br>
+             <% end %>
+          <% end %></td>
+        <% end %>
+</tr>
+<% end %>
+
+</table> 

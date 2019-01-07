@@ -1,0 +1,9 @@
+<h1>現在の注文</h1>
+
+<table>
+  <% @orders.each do |order| %>
+  <td>order.time</td>
+  <% @boxes = Box.where(order_id:order.id) %>
+  <td><% @boxes.each do |box| %>
+      <% @dishes = box.dishes %>
+      <% @dishes.

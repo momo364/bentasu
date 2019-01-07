@@ -17,3 +17,23 @@
      </span>
   </span>
 </span>
+
+<% if current_worker.present? && current_worker.admin == false %>
+<div class = "menubar">
+  <%= menu_link_to "TOP", :root %>
+  <%= menu_link_to "現在の注文を確認","#" %>
+  <%= menu_link_to "おかず検索","#" %>
+  <%= menu_link_to "おかず予定数","#" %>
+</div>
+<% end %>
+
+<% if current_worker.present? && current_worker.admin == true %>
+<div class = "menubar">
+  <%= menu_link_to "TOP", :root %>
+  <%= menu_link_to "注文履歴一覧",:controller => "orders", :action => "index" %>
+  <%= menu_link_to "おかず一覧",:controller => "dishes",:action => "index" %>
+  <%= menu_link_to "管理者一覧",:controller => "workers", :action => "index" %>
+  <%= menu_link_to "顧客一覧",:controller => "customers",:action => "index" %>
+</div>
+
+<% end %>

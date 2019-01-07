@@ -1,0 +1,33 @@
+<p>会員情報の編集</p>
+
+<%= form_for @customer do |form| %>
+<table class = "attr" >
+  <tr>
+    <th><%= form.label :name, "氏名" %></th>
+    <td><%= form.text_field :name %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :telephone, "電話番号" %></th>
+    <td><%= form.text_field :telephone %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :mail_address, "メールアドレス" %></th>
+    <td><%= form.text_field :mail_address %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :username, "ユーザ名" %></th>
+    <td><%= form.text_field :username %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :password, "パスワード" %></th>
+    <td><%= form.password_field :password %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :password_confirmation, "パスワード確認" %></th>
+    <td><%= form.password_field :password_confirmation %></td>
+  </tr>
+</table>
+<p><%= form.submit "更新" %></p>
+<% end %>
+
+<p><%= link_to "ショッピングカートの中身を見る",:controller => "dishes", :action => "selected" %></p>

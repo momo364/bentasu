@@ -1,9 +1,11 @@
 class DishesController < ApplicationController
   def index
     @dishes = Dish.order(:id)
-    @len = session[:box_id].size
-    if BoxDish.where(box_id: session[:box_id][@len - 1]).count == 0
-      session[:capamax] = false
+    if session[:box_id] != nil
+      @len = session[:box_id].size
+      if BoxDish.where(box_id: session[:box_id][@len - 1]).count == 0
+        session[:capamax] = false
+      end
     end
   end
 
