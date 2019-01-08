@@ -22,9 +22,12 @@
       <% end %>
     <% else %>
       <td><% @s = SaleManagement.where(dish_id:dish.id).last %><%= @s.planned_number %></td>
-      <td><%= link_to "予定数変更","#" %></td>
       <% if current_worker.admin == false %>
-      <td><%= link_to "生産ストップ","#" %></td>
+        <% if dish.potential == true %>
+        <td><%= link_to "生産ストップ",[:stop,dish],method: :patch ,data: {confirm: "生産ストップしますか？"} %></td>
+        <% else %>
+        <td><%= link_to "生産再開",[:start,dish],method: :patch ,data: {confirm: "生産再開しますか？"} %></td>
+        <% end %>
       <% end %>
     <% end %>
   </tr>

@@ -1,6 +1,10 @@
 class DishesController < ApplicationController
   def index
-    @dishes = Dish.order(:id).search(params[:search])
+    if current_worker.present?
+      @dishes = Dish.order(:id).search(params[:search])
+    else
+      @dishes = Dish.order(:id).where(potential:true).search(params[:search])
+    end
     if session[:box_id] != nil
       @len = session[:box_id].size
       if BoxDish.where(box_id: session[:box_id][@len - 1]).count == 0
@@ -71,5 +75,22 @@ class DishesController < ApplicationController
   end
  
   def stop
+    @dish = Dish.find(params[:id])
+    @dish.potential = false
+    if @dish.save
+      redirect_to :dishes, notice: "生産ストップしました"
+    else
+      render 'index'
+    end 
   end
+
+  def start
+    @dish = Dish.find(params[:id])
+    @dish.potential = true 
+    if @dish.save
+      redirect_to :dishes, notice: "生産再開しました"
+    else
+      render 'index'
+    end 
+  end 
 end
