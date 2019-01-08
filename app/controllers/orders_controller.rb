@@ -41,7 +41,6 @@ class OrdersController < ApplicationController
   def finish 
     @dcount = []
     @order = Order.find(params[:id])
-    @order.save
     @boxes = Box.where(order_id:@order.id)
     @boxes.each do |box|       
       @dishes = BoxDish.where(box_id:box.id)
@@ -69,6 +68,7 @@ class OrdersController < ApplicationController
     if @canfinish = true  
       @order.status = true
     end
+    @order.save
     redirect_to controller: 'orders',action: 'kitchen_index'
   end
 end

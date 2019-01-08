@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     end
   end
   resources :dishes do
+    resources :sale_managements
     member { patch :select,:unselect,:dish_params }
     collection { get :selected }
   end
