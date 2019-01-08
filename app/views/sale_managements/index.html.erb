@@ -1,0 +1,17 @@
+<h1>おかず在庫管理</h1>
+
+<table>
+  <tr>
+    <th>おかず名</th>
+    <th>作成可能数</th>
+    <th>作成数</th>
+  </tr>
+  <% @sale.each do |s| %>
+  <% @d = Dish.find(s.dish_id) %>
+  <tr>
+    <td><%= @d.name %></td>
+    <td><%= s.planned_number %></td>
+    <td><%= s.made_number %></td>
+  </tr>
+  <% end %>
+</table> 

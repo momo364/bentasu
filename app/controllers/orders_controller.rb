@@ -38,10 +38,9 @@ class OrdersController < ApplicationController
     @orders = Order.where(status: false)
   end
 
-  def complete
+  def finish 
     @dcount = []
     @order = Order.find(params[:id])
-    @order.status = true
     @order.save
     @boxes = Box.where(order_id:@order.id)
     @boxes.each do |box|       
@@ -55,6 +54,7 @@ class OrdersController < ApplicationController
       end
     end
     @len = @dcount.size
+    @canfinish = true
     1.upto(@len-1) do |i|
       @dish = Dish.find(i)
       @sale = SaleManagement.where(dish_id:@dish.id).last
@@ -62,7 +62,13 @@ class OrdersController < ApplicationController
         @sale.sold_number = @sale.sold_number + @dcount[i]
         @sale.save
       else
-        redirect_to controller: 'orders', action: 'kitchen_index'
+        @canfinish = false
+        render 'kitchen_index' and return
+      end
     end
+    if @canfinish = true  
+      @order.status = true
+    end
+    redirect_to controller: 'orders',action: 'kitchen_index'
   end
 end

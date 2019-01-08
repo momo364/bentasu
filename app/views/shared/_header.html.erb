@@ -22,8 +22,7 @@
 <div class = "menubar">
   <%= menu_link_to "TOP", :root %>
   <%= menu_link_to "現在の注文を確認",:controller => "orders",:action => "kitchen_index" %>
-  <%= menu_link_to "おかず予定数","#" %>
-  <%= menu_link_to "おかず作成数","#" %>
+  <%= menu_link_to "おかず予定数",:controller => "sale_managements",:action => "index" %>
   <%= menu_link_to "おかず一覧",:controller => "dishes",:action => "index" %>
 </div>
 <% end %>

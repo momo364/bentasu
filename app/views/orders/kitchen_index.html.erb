@@ -1,5 +1,6 @@
 <h1>現在の注文</h1>
 <% @dcount = [] %>
+<% if @orders.present? %>
 <table>
 <% @orders.each do |order| %>
 <tr>
@@ -15,14 +16,19 @@
     <% end %>
   <% end %>
   <% @len = @dcount.size %>
+  <td>
   <% 1.upto(@len-1) do |i| %>
     <% @dish = Dish.find(i) %>
-    <td><%= @dish.name %></td>
-    <td>｜注文数：<%= @dcount[i] %></td>
+    <%= @dish.name %>
+    ｜注文数：<%= @dcount[i] %>
     <% @sale = SaleManagement.where(dish_id:@dish.id).last %>
-    <td>｜在庫<%= @sale.made_number - @sale.sold_number %>｜</td>
+    ｜在庫<%= @sale.made_number - @sale.sold_number %>｜
+  <br>
   <% end %>
-  <td> <%= link_to "完了",[:complete,order],method: :patch, class: "ordercomplete" %></td>
+  </td>
+  <td> <%= link_to "完了",[:finish,order],method: :patch, class: "orderfinish" %></td>
 </tr> 
 <% end %>
- 
+<% else %>
+<p>注文はありません</p>
+<% end %> 

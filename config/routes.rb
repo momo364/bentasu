@@ -13,9 +13,9 @@ Rails.application.routes.draw do
   end
   resources :orders do 
     resources :boxes
-    member { patch :complete } 
+    member { patch :finish } 
     collection do
-      get :kitchen_index
+      get :kitchen_index,:complete
     end
   end
   resources :box_kinds
