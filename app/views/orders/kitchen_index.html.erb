@@ -1,7 +1,28 @@
 <h1>現在の注文</h1>
-
+<% @dcount = [] %>
 <table>
+<% @orders.each do |order| %>
+<tr>
   <% @boxes = Box.where(order_id:order.id) %>
-  <td><% @boxes.each do |box| %>
-      <% @dishes = box.dishes %>
-      <% @dishes.
+  <% @boxes.each do |box| %> 
+    <% @dishes = BoxDish.where(box_id:box.id) %>
+    <% @dishes.each do |dish| %>
+      <% if @dcount[dish.id] == nil %>
+        <% @dcount[dish.id] = 1 %>
+      <% else %>
+        <% @dcount[dish.id] = @dcount[dish.id] + 1 %>
+      <% end %>
+    <% end %>
+  <% end %>
+  <% @len = @dcount.size %>
+  <% 1.upto(@len-1) do |i| %>
+    <% @dish = Dish.find(i) %>
+    <td><%= @dish.name %></td>
+    <td>｜注文数：<%= @dcount[i] %></td>
+    <% @sale = SaleManagement.where(dish_id:@dish.id).last %>
+    <td>｜在庫<%= @sale.made_number - @sale.sold_number %>｜</td>
+  <% end %>
+  <td> <%= link_to "完了",[:complete,order],method: :patch, class: "ordercomplete" %></td>
+</tr> 
+<% end %>
+ 

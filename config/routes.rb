@@ -8,13 +8,13 @@ Rails.application.routes.draw do
     end
   end
   resources :dishes do
-    member { patch :select,:unselect }
+    member { patch :select,:unselect,:dish_params }
     collection { get :selected }
   end
   resources :orders do 
     resources :boxes
+    member { patch :complete } 
     collection do
-      get :complete
       get :kitchen_index
     end
   end

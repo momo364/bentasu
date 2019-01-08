@@ -7,19 +7,27 @@ class DishesController < ApplicationController
         session[:capamax] = false
       end
     end
+    @dish = Dish.new
+    @dish.allergy_dishes.build
+    @dish.build_sale_management
   end
 
   def new
     @dish = Dish.new
+    @dish.allergy_dishes.build
   end
   
   def create
-    @dish = Dish.new(params[:dish])
+    @dish = Dish.new(dish_params)
     if @dish.save
       redirect_to :dishes, notice: "登録しました"
     else
       redirect_to 'index'
     end
+  end
+
+  def dish_params
+    params.require(:dish).permit(:name,:price,:calorie,{:allergy_ids => []},:category,:potential)
   end
 
   def select

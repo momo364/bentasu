@@ -9,10 +9,10 @@ categories = %w{1 0 0 2 1}
     category: categories[idx],
     potential: true
   )
-  0.upto(1) do |i|
-    allergy = Allergy.new
-    allergy.name = "#{allergies[i]}"
+  #0.upto(1) do |i|
+  #  allergy = Allergy.new
+  #  allergy.name = "#{allergies[i]}"
   #  allergy = Allergy.find(i+idx+1)
-    dish.allergies << allergy 
-  end
+  #  dish.allergies << allergy 
+  #end
 end

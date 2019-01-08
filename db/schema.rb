@@ -94,12 +94,13 @@ ActiveRecord::Schema.define(version: 20181226141007) do
   add_index "orders", ["customer_id"], name: "index_orders_on_customer_id"
 
   create_table "sale_managements", force: :cascade do |t|
-    t.integer  "dish_id",                    null: false
-    t.integer  "planned_number", default: 0, null: false
-    t.integer  "made_number",    default: 0, null: false
-    t.integer  "sold_number",    default: 0, null: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.integer  "dish_id",                     null: false
+    t.integer  "planned_number", default: 30, null: false
+    t.integer  "made_number",    default: 0,  null: false
+    t.integer  "sold_number",    default: 0,  null: false
+    t.integer  "ordered_number", default: 0,  null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   create_table "workers", force: :cascade do |t|
