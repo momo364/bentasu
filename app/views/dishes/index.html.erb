@@ -4,10 +4,14 @@
   <%= text_field_tag :search,params[:search] %>
   <%= submit_tag 'Search', :name => nil %>
 <% end %>
-
+<% @len = session[:box_id].size %>
 <table>
-<% @dishes.each do |dish| %>
   <tr>
+    <th>おかず名</th>
+    <Th>1セットあたりの値段</th>
+    <th>アレルギー名</th>
+  <tr>
+<% @dishes.each do |dish| %>
     <td><%= dish.name %></td>
     <td><%= dish.price %></td>
     <% dish.allergies.order("id").each do |allergy| %>
@@ -17,11 +21,10 @@
       <% if session[:capamax] == false %>
      <td> <%= link_to "選択する",[:select,dish],method: :patch, class: "dishselect" %></td>
       <% end %>
-      <% if BoxDish.where(box_id: session[:box_id],dish_id: dish.id).count != 0 %>
+      <% if BoxDish.where(box_id: session[:box_id][@len - 1],dish_id: dish.id).count != 0 %>
       <td><%= link_to "選択解除",[:unselect,dish],method: :patch, class: "dishunselect" %></td>
       <% end %>
     <% else %>
-      <td><% @s = SaleManagement.where(dish_id:dish.id).last %><%= @s.planned_number %></td>
       <% if current_worker.admin == false %>
         <% if dish.potential == true %>
         <td><%= link_to "生産ストップ",[:stop,dish],method: :patch ,data: {confirm: "生産ストップしますか？"} %></td>

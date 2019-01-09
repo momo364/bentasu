@@ -12,11 +12,19 @@
      <% end %>
      <span class = "customer" %>
      <% if current_customer %>
-     <%= link_to current_customer.name+"さん",{:controller => "customers", :action => "history"}   %>
+     <%= link_to current_customer.name+"さん",:session_customer,method: :delete,data:{confirm:"ログアウトしますか？"}   %>
      <% end %>
      </span>
   </span>
 </span>
+<% if current_customer.present? %>
+<div class = "menubar">
+  <%= menu_link_to "TOP", :root %>
+  <%= menu_link_to "注文履歴の確認",:controller => "customers",:action => "history" %>
+  <%= menu_link_to "ショッピングカート",:controller => "dishes",:action => "selected" %>
+  <%= menu_link_to "アカウント情報",[:edit,current_customer] %>
+</div>
+<% end %>
 
 <% if current_worker.present? && current_worker.admin == false %>
 <div class = "menubar">

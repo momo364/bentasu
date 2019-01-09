@@ -43,7 +43,7 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
     @boxes = Box.where(order_id:@order.id)
     @boxes.each do |box|       
-      @dishes = BoxDish.where(box_id:box.id)
+      @dishes = box.dishes
       @dishes.each do |dish|
         if @dcount[dish.id] == nil
           @dcount[dish.id] = 1
@@ -55,19 +55,22 @@ class OrdersController < ApplicationController
     @len = @dcount.size
     @canfinish = true
     1.upto(@len-1) do |i|
-      @dish = Dish.find(i)
-      @sale = SaleManagement.where(dish_id:@dish.id).last
-      if (@sale.made_number - @sale.sold_number) >= @dcount[i]
-        @sale.sold_number = @sale.sold_number + @dcount[i]
-        @sale.save
-      else
-        @canfinish = false
-        render 'kitchen_index' and return
+      @sale = SaleManagement.where(dish_id:i).last
+      if @dcount[i] != nil
+        unless (@sale.made_number - @sale.sold_number) >= @dcount[i]
+          render 'kitchen_index' and return
+        end
       end
     end
-    if @canfinish = true  
-      @order.status = true
+    1.upto(@len-1) do |i|
+      if @dcount[i] != nil
+        @dish = Dish.find(i)
+        @sale = SaleManagement.where(dish_id:@dish.id).last
+        @sale.sold_number = @sale.sold_number + @dcount[i]
+        @sale.save
+      end
     end
+    @order.status = true
     @order.save
     redirect_to controller: 'orders',action: 'kitchen_index'
   end

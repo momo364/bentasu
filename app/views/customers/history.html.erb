@@ -12,6 +12,3 @@
 <p>準備中の注文：<%= @yet %></p>
 <p>完了した注文：<%= @comp %></p>
 
-<p><%= link_to "ショッピングカートの中身を見る",:controller => "dishes", :action => "selected" %></p>
-<p><%= link_to "自分の情報を変更する",[:edit,current_customer] %></p>
-<p><%= link_to "ログアウト",:session_customer,method: :delete,data: {confirm: "ログアウトしますか" }  %></p>
