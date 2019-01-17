@@ -1,16 +1,19 @@
 <% @page_title = "お弁当を選ぶ" %>
-
+<div class = "top" >
 <p>2種類のお弁当箱からお選びください</p>
 
 <span class = "boxkind_table">
-<table>
+<table align="center">
   <tr>
   <% @boxkinds.each do |boxkind| %>
     <td><%= boxkind.name %></td>
   <% end %>
   </tr>
   <tr>
-  <% @box = Box.new(box_kind_id: 1,rice: 1,number:1)  %>
+    <td><%= image_tag("box2.png",:size => "288x189") %></td>
+    <td><%= image_tag("box3.png",:size => "288x189") %></td>
+  <tr>
+  <% @box = Box.new(box_kind_id:100)%>
   <%= form_for @box, :url => {:controller => 'boxes',:action => 'create' } do |form| %>
     <td><%= form.radio_button :box_kind_id, 1 %></td> 
     <td><%= form.radio_button :box_kind_id, 2 %></td> 
@@ -20,5 +23,8 @@
 </table>
   <p><%= form.submit "おかず選択に移る" %></p>
   <% end %>
-
+<span class = "topbutton">
 <p><%= link_to "トップページに戻る", :root %> 
+</span>
+
+</div>

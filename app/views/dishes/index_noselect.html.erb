@@ -1,0 +1,18 @@
+
+
+<table align="center">
+  <tr>
+    <th>おかず名</th>
+    <Th>1セットあたりの値段</th>
+    <th>アレルギー名</th>
+  </tr>
+<% @dishes.each do |dish| %>
+    <tr>
+    <td><%= dish.name %></td>
+    <td><%= dish.price %>円</td>
+    <td><% dish.allergies.order("id").each do |allergy| %>
+      <%= allergy.name %>・ <% end %>
+   </td>
+   </tr>
+<% end %>
+</table>

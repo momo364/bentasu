@@ -1,3 +1,9 @@
-<p>Ben+トップページです</p>
-<%= link_to "おかず一覧へ","#" %>/
+<div class="top">
+<br>
+おかずを１品ずつ選んで自由にお弁当が作れます。<br>
+お弁当箱はおかずが２つ入るものと３つ入るものから選ぶことができます。<br>
+<span class="topbutton">
+<%= link_to "おかず一覧へ",{:controller => "dishes",:action => "index_noselect"} %>
 <%= link_to "お弁当を選ぶ",{:controller => "box_kinds",:action => "index"} %>
+</span>
+</div>

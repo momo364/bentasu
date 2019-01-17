@@ -15,6 +15,11 @@ class DishesController < ApplicationController
     @dish.allergy_dishes.build
     @dish.build_sale_management
   end
+  
+  def index_noselect
+   
+      @dishes = Dish.order(:id).where(potential:true)
+  end
 
   def new
     @dish = Dish.new

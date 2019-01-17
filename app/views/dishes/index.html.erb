@@ -1,11 +1,15 @@
+<div class = "top">
 <p>おかず一覧ページ</p>
 
 <%= form_tag(dishes_path, :method => 'get' ) do %>
   <%= text_field_tag :search,params[:search] %>
   <%= submit_tag 'Search', :name => nil %>
 <% end %>
-<% @len = session[:box_id].size %>
-<table>
+<% if session[:box_id] != nil %>
+  <% @len = session[:box_id].size %>
+<% end %>
+<br>
+<table align="center">
   <tr>
     <th>おかず名</th>
     <Th>1セットあたりの値段</th>
@@ -13,10 +17,10 @@
   <tr>
 <% @dishes.each do |dish| %>
     <td><%= dish.name %></td>
-    <td><%= dish.price %></td>
-    <% dish.allergies.order("id").each do |allergy| %>
-      <td><%= allergy.name %>・</td>
-    <% end %>
+    <td><%= dish.price %>円</td>
+    <td><% dish.allergies.order("id").each do |allergy| %>
+      <%= allergy.name %>・ 
+    <% end %></td>
     <% unless current_worker.present? %>
       <% if session[:capamax] == false %>
      <td> <%= link_to "選択する",[:select,dish],method: :patch, class: "dishselect" %></td>
@@ -34,9 +38,9 @@
       <% end %>
     <% end %>
   </tr>
-  </br>
 <% end %>
 </table>
+<br>
 
 <%= render "shared/errors", obj: @dish %>
 <% if current_worker.present? && current_worker.admin == true %>
@@ -79,11 +83,4 @@
 <% if session[:capamax] == true %>
 <p><%= link_to "注文確認画面へ",{:controller => "dishes",:action => "selected"} %></p>
 <% end %>
-
-<p><%= session[:box_kind_id] %></p>
-<p><%= session[:box_id] %></p>
-<p><%= session[:capamax] %></p>
-<% @okazu = BoxDish.all %>
-<% @okazu.each do |okazu| %>
-  <%= okazu.box_id %>　<%= okazu.dish_id %>
-<% end %>
+</div>

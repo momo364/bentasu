@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   resources :dishes do
     resources :sale_managements
     member { patch :select,:unselect,:dish_params,:stop,:start }
-    collection { get :selected }
+    collection { get :selected ,:index_noselect}
   end
   resources :orders do 
     resources :boxes

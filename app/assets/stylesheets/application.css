@@ -1,3 +1,7 @@
+table.boxkind{
+ align:center;
+}
+
 .img_center {
   text-align: center;
 }
@@ -40,3 +44,52 @@
   text-decoration: none;
   color: #3d3d3d;
 }
+table{
+  border-collapse: collapse;
+  border: solid 1px #606060;
+}
+th{
+  color: #FF9800;
+  background: #fff5e5;
+  border: solid 1px #606060;
+}
+
+td{
+  color: #505050;
+  border: solid 1px #606060;
+}
+
+.top {
+  text-align:center;
+}
+
+.topbutton a:link{
+  border: solid 1px #ffd1a3;
+  border-radius: 5px;
+  background-color: #ffd1a3;
+  padding-left: 5px;
+  padding-right: 5px;
+  text-decoration: none;
+  color: black;
+}
+
+.topbutton a:visited{
+  border: solid 1px #ffd1a3;
+  border-radius: 5px;
+  background-color: #ffd1a3;
+  padding-left: 5px;
+  padding-right: 5px;
+  text-decoration: none;
+  color: black;
+}
+
+.topbutton a:hover{
+  border: solid 1px #ffd1a3;
+  border-radius: 5px;
+  background-color: #ffd1a3;
+  padding-left: 5px;
+  padding-right: 5px;
+  text-decoration: none;
+  color: #3d3d3d;
+}
+  
