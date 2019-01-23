@@ -1,13 +1,11 @@
 <div class = "top">
 <h1>おかず一覧ページ</h1>
 
-<%= form_tag(dishes_path, :method => 'get' ) do %>
-  <%= text_field_tag :search,params[:search] %>
-  <%= submit_tag 'Search', :name => nil %>
-<% end %>
+<p><%= render "search_form" %></p>
 <% if session[:box_id] != nil %>
   <% @len = session[:box_id].size %>
 <% end %>
+<% if @dishes.present? %>
 <br>
 <table align="center">
   <tr>
@@ -16,6 +14,7 @@
     <th>アレルギー名</th>
   <tr>
 <% @dishes.each do |dish| %>
+  <% @sale = dish.sale_management %>
     <td><%= dish.name %></td>
     <td><%= dish.price %>円</td>
     <td><% dish.allergies.order("id").each do |allergy| %>
@@ -33,7 +32,8 @@
         <% if dish.potential == true %>
         <td><%= link_to "生産ストップ",[:stop,dish],method: :patch ,data: {confirm: "生産ストップしますか？"} %></td>
         <% else %>
-        <td><%= link_to "生産再開",[:start,dish],method: :patch ,data: {confirm: "生産再開しますか？"} %></td>
+        <% unless @sale.sold_number >= @sale.planned_number %>
+        <td><%= link_to "生産再開",[:start,dish],method: :patch ,data: {confirm: "生産再開しますか？"} %></td><% end %>
         <% end %>
       <% end %>
     <% end %>
@@ -41,44 +41,15 @@
 <% end %>
 </table>
 <br>
+<% else %>
+  <p>おかずはありません</p>
+<% end %>
 
-<%= render "shared/errors", obj: @dish %>
 <% if current_worker.present? && current_worker.admin == true %>
-<%= form_for @dish ,:url => {:action => 'create'} do  |form| %>
-<table align="center" >
-  <tr>
-    <th><%= form.label :name, "料理名" %></th>
-    <td><%= form.text_field :name %></td>
-  </tr>
-  <tr>
-    <th><%= form.label :price, "値段" %></th>
-    <td><%= form.text_field :price %></td>
-  </tr>
-  <tr>
-    <th><%= form.label :calorie, "カロリー" %></th>
-    <td><%= form.text_field :calorie %></td>
-  </tr>
-  <tr>
-    <th><%= form.label :allergy_ids, "アレルギー" %></th>
-    <td><%= form.collection_check_boxes :allergy_ids,Allergy.all,:id,:name %></td>
-  </tr>
-  
-  <tr>
-    <th><%= form.label :category, "カテゴリー" %></th>
-    <td>
-      <%= form.radio_button :category,0 %>
-      <%= form.label :category_0, "和食" %>
-      <%= form.radio_button :category,1 %>
-      <%= form.label :category_1, "洋食" %>
-      <%= form.radio_button :category,2 %>
-      <%= form.label :category_2, "中華" %>
-    </td>
-  </tr>
-  <%= form.hidden_field :potential, value:true %>
-</table>
-<p><%= form.submit "登録" %></p>
+  <%= link_to "おかず新規登録",:new_dish %>
 <% end %>
-<% end %>
+
+
 
 <% if session[:capamax] == true %>
 <p><%= link_to "注文確認画面へ",{:controller => "dishes",:action => "selected"} %></p>

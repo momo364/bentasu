@@ -7,10 +7,9 @@ class Customer < ActiveRecord::Base
     length: { maximum: 15, allow_blank: true }
   validates :username, presence: true,
     format: { with: /\A[A-Za-z]\w*\z/, allow_blank: true},
-    length: { minimum: 3, maximum: 20, allow_blank: true},
+    length: { minimum: 2, maximum: 20, allow_blank: true},
     uniqueness: {case_sensitive: false}
-  validates :mail_address, presence: true,
-    length: { minimum: 1, allow_blank: true }
+  validate :check_email
 
   validates :password, presence: {on: :create},
      confirmation: {allow_blank: true} 
@@ -21,6 +20,13 @@ class Customer < ActiveRecord::Base
       self.hashed_password = BCrypt::Password.create(val)
     end
     @password = val
+  end
+
+  private
+  def check_email
+    if mail_address.present?
+      errors.add(:mail_address, :invalid) unless well_formed_as_email_address(mail_address)
+    end
   end
 
   class << self  

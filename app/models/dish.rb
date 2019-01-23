@@ -6,11 +6,4 @@ class Dish < ActiveRecord::Base
   has_many :box_dishes, dependent: :destroy
   has_many :boxes, through: :box_dishes
 
-  def self.search(search)
-    if search
-      where(['name LIKE ?', "%#{search}%" ])
-    else
-      all
-    end
-  end
 end

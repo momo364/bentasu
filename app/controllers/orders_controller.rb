@@ -58,7 +58,7 @@ class OrdersController < ApplicationController
       @sale = SaleManagement.where(dish_id:i).last
       if @dcount[i] != nil
         unless (@sale.made_number - @sale.sold_number) >= @dcount[i]
-          render 'kitchen_index' and return
+          redirect_to kitchen_index_orders_path,notice:"在庫が足りないので完了できませんでした" and return
         end
       end
     end
@@ -68,6 +68,10 @@ class OrdersController < ApplicationController
         @sale = SaleManagement.where(dish_id:@dish.id).last
         @sale.sold_number = @sale.sold_number + @dcount[i]
         @sale.save
+        if @sale.sold_number >= @sale.planned_number
+          @dish.potential = false
+          @dish.save
+        end
       end
     end
     @order.status = true

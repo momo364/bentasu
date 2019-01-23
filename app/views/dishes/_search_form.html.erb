@@ -1,0 +1,25 @@
+<%= search_form_for(@q,url:search_dishes_path) do |form| %>
+<table align="center">
+  <tr>
+   <th><%= form.label :name_cont, "おかず名" %></th>
+   <td><%= form.search_field :name_cont, size: 8 %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :allergies_ids_not_in, "アレルギー" %></th>
+    <td><%= form.collection_check_boxes :allergies_id_not_in, Allergy.all,:id,:name %>を含まない</td>
+  </tr>
+  <tr>
+    <th>カテゴリー</th>
+    <td>
+      <%= form.radio_button :category_eq, "",{:checked => true} %>指定なし
+      <%= form.radio_button :category_eq,0 %>
+      <%= form.label :category_0, "和食" %>
+      <%= form.radio_button :category_eq, 1 %>
+      <%= form.label :category_1, "洋食" %>
+      <%= form.radio_button :category_eq, 2 %>
+      <%= form.label :category_2, "中華" %>
+    </td>
+  </tr>
+</table>
+<%= form.submit %>
+<% end %>

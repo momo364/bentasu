@@ -1,0 +1,40 @@
+<div class= "top">
+<%= render "shared/errors", obj: @dish %>
+<br>
+<% if current_worker.present? && current_worker.admin == true %>
+<%= form_for @dish ,:url => {:action => 'create'} do  |form| %>
+<table align="center" >
+  <tr>
+    <th><%= form.label :name, "料理名" %></th>
+    <td><%= form.text_field :name %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :price, "値段" %></th>
+    <td><%= form.text_field :price %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :calorie, "カロリー" %></th>
+    <td><%= form.text_field :calorie %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :allergy_ids, "アレルギー" %></th>
+    <td><%= form.collection_check_boxes :allergy_ids,Allergy.all,:id,:name %></td>
+  </tr>
+  
+  <tr>
+    <th><%= form.label :category, "カテゴリー" %></th>
+    <td>
+      <%= form.radio_button :category,0 %>
+      <%= form.label :category_0, "和食" %>
+      <%= form.radio_button :category,1 %>
+      <%= form.label :category_1, "洋食" %>
+      <%= form.radio_button :category,2 %>
+      <%= form.label :category_2, "中華" %>
+    </td>
+  </tr>
+  <%= form.hidden_field :potential, value:true %>
+</table>
+<p><%= form.submit "登録" %></p>
+<% end %>
+<% end %>
+</div>

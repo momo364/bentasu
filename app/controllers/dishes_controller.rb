@@ -1,9 +1,10 @@
 class DishesController < ApplicationController
   def index
+    @q = Dish.ransack(params[:q])
     if current_worker.present?
-      @dishes = Dish.order(:id).search(params[:search])
+      @dishes = @q.result.includes(:allergies)
     else
-      @dishes = Dish.order(:id).where(potential:true).search(params[:search])
+      @dishes = @q.result.includes(:allergies).where(potential:true)
     end
     if session[:box_id] != nil
       @len = session[:box_id].size
@@ -14,6 +15,7 @@ class DishesController < ApplicationController
     @dish = Dish.new
     @dish.allergy_dishes.build
     @dish.build_sale_management
+    
   end
   
   def index_noselect
@@ -98,4 +100,14 @@ class DishesController < ApplicationController
       render 'index'
     end 
   end 
+
+  def search
+    @q = Dish.search(search_params)
+    @dishes = @q.result(distinct:true)
+    render "index"
+  end
+
+  def search_params
+    params.require(:q).permit!
+  end
 end

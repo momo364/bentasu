@@ -8,8 +8,12 @@
     <td><%= @dish.name %></td>
     <th><%= form.label :planned_number, "予定数" %></th>
     <td><%= form.text_field :planned_number %></td>
+    <% if current_worker.admin == false %>
     <th><%= form.label :made_number, "作成数" %></th>
     <td><%= form.text_field :made_number %></td>
+    <% else %>
+      <%= form.hidden_field :made_number, value:@sale.made_number %>
+    <% end %>
   </tr>
   <%= form.hidden_field :dish_id, value:@sale.dish_id %>
   <%= form.hidden_field :sold_number, value:@sale.sold_number %>
