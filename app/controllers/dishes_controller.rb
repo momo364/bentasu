@@ -15,7 +15,20 @@ class DishesController < ApplicationController
     @dish = Dish.new
     @dish.allergy_dishes.build
     @dish.build_sale_management
-    
+    if params[:format].in?(["jpg", "png", "gif"])
+      send_image
+    else
+      render "index"
+    end
+  end
+
+  def show
+    @dish = Dish.find(params[:id])
+    if params[:format].in?(["jpg", "png", "gif"])
+      send_image
+    else
+      render "index"
+    end
   end
   
   def destroy
@@ -122,5 +135,16 @@ class DishesController < ApplicationController
 
   def search_params
     params.require(:q).permit!
+  end
+
+  private
+  # 画像送信
+  def send_image
+    if @dish.dish_image.present?
+      send_data @dish.dish_image.data,
+        type: @dish.dish_image.content_type, disposition: "inline"
+    else
+      raise NotFound
+    end
   end
 end

@@ -9,12 +9,14 @@
 <br>
 <table align="center">
   <tr>
+    <th>写真</th>
     <th>おかず名</th>
     <Th>1セットあたりの値段</th>
     <th>アレルギー名</th>
   <tr>
 <% @dishes.each do |dish| %>
   <% @sale = dish.sale_management %>
+    <td><%= dish_image_tag dish %></td>
     <td><%= dish.name %></td>
     <td><%= dish.price %>円</td>
     <td><% dish.allergies.order("id").each do |allergy| %>

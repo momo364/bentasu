@@ -9,10 +9,10 @@ categories = %w{1 0 0 2 1}
     category: categories[idx],
     potential: true
   )
-  #0.upto(1) do |i|
-  #  allergy = Allergy.new
-  #  allergy.name = "#{allergies[i]}"
-  #  allergy = Allergy.find(i+idx+1)
-  #  dish.allergies << allergy 
-  #end
+  path = Rails.root.join("db/seeds/development", "#{idx+1}.png")
+  file = Rack::Test::UploadedFile.new(path, "image/png", true)
+  DishImage.create(
+    dish: dish,
+    uploaded_image: file
+  )
 end
