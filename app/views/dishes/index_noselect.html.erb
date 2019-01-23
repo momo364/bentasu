@@ -1,5 +1,5 @@
 
-
+<h1>おかず一覧</h1>
 <table align="center">
   <tr>
     <th>おかず名</th>
@@ -11,7 +11,7 @@
     <td><%= dish.name %></td>
     <td><%= dish.price %>円</td>
     <td><% dish.allergies.order("id").each do |allergy| %>
-      <%= allergy.name %>・ <% end %>
+      <%= allergy.name %>&nbsp <% end %>
    </td>
    </tr>
 <% end %>

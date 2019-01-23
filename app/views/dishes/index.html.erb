@@ -1,5 +1,5 @@
 <div class = "top">
-<p>おかず一覧ページ</p>
+<h1>おかず一覧ページ</h1>
 
 <%= form_tag(dishes_path, :method => 'get' ) do %>
   <%= text_field_tag :search,params[:search] %>
@@ -45,7 +45,7 @@
 <%= render "shared/errors", obj: @dish %>
 <% if current_worker.present? && current_worker.admin == true %>
 <%= form_for @dish ,:url => {:action => 'create'} do  |form| %>
-<table class = "attr" >
+<table align="center" >
   <tr>
     <th><%= form.label :name, "料理名" %></th>
     <td><%= form.text_field :name %></td>
@@ -59,7 +59,7 @@
     <td><%= form.text_field :calorie %></td>
   </tr>
   <tr>
-    <td><%= form.label :allergy_ids, "アレルギー" %></td>
+    <th><%= form.label :allergy_ids, "アレルギー" %></th>
     <td><%= form.collection_check_boxes :allergy_ids,Allergy.all,:id,:name %></td>
   </tr>
   

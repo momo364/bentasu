@@ -1,4 +1,5 @@
-<p><%= current_customer.name %>さんの注文履歴</p>
+<div class = "top">
+<h1><%= current_customer.name %>さんの注文履歴</h1>
 <% @yet = 0 %>
 <% @comp = 0 %>
 <% @histories.each do |history| %> 
@@ -11,4 +12,4 @@
 
 <p>準備中の注文：<%= @yet %></p>
 <p>完了した注文：<%= @comp %></p>
-
+</div>

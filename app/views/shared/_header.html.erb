@@ -1,5 +1,5 @@
-<span class = "img_center">
-  <%= image_tag("bentasu_logo.jpeg",size: "250x100", alt:"Ben+") %> 
+<div class = "top">  
+<%= image_tag("bentasu_logo.jpeg",size: "250x100", alt:"Ben+") %> 
   <span class = "loginbutton">
      <%= link_to "ログイン",:controller => "customers",
           :action => "login"  unless current_worker || current_customer %>
@@ -16,7 +16,6 @@
      <% end %>
      </span>
   </span>
-</span>
 <% if current_customer.present? %>
 <div class = "menubar">
   <%= menu_link_to "TOP", :root %>
@@ -44,3 +43,4 @@
   <%= menu_link_to "顧客一覧",:controller => "customers",:action => "index" %>
 </div>
 <% end %>
+</div>

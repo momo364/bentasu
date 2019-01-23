@@ -1,7 +1,7 @@
-
+<div class="top">
 <h1>管理者一覧</h1>
 
-<table>
+<table align="center">
  <tr>
    <th>氏名</th>
    <th>管理者権限</th>
@@ -16,11 +16,11 @@
  <% end %>
 </table>
 
-<p>新規登録フォーム</p>
+<h1>新規登録フォーム</h1>
 <% @worker = Worker.new() %>
 <%= render "shared/errors", obj: @worker %>
 <%= form_for @worker, :url => {:action => 'create'} do |form| %>
-<table class = "attr" >
+<table align="center" >
   <tr>
     <th><%= form.label :name, "氏名" %></th>
     <td><%= form.text_field :name %></td>

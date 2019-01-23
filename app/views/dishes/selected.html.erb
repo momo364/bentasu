@@ -1,16 +1,23 @@
 <% @page_title = "カートの中身" %>
+<span class = "top">
 <h1><%= @page_title %></h1>
+<table align="center">
 <% @cnt = 0 %> <% @pricesum = 0 %>
 <% if @selectdishes.present? %>
     <% @selectdishes.each do |okazu| %>
+    <tr>
       <% @cnt = @cnt + 1 %>
-      <p>お弁当<%= @cnt %></p>
+      <th>お弁当<%= @cnt %></th>
+      <td>
       <% okazu.each do |d| %>
-        <p><%= d.name %></p>
+        <%= d.name %><br>
         <% @pricesum = @pricesum + d.price %>
       <% end %>
+      </td>
+    </tr>
     <% end %>
-    <p>合計金額<%= @pricesum %>円</p>
+    </table>
+    <p class="price">合計金額<%= @pricesum %>円</p>
 <% else %>
   <p>カートに商品がありません</p>
 <% end %>
@@ -22,4 +29,4 @@
   <p><%= link_to "注文を確定する",{ :controller => "customers", :action => "login" }  %></p>
   <p><%= link_to "お弁当を追加する",{ :controller => "customers", :action => "login" }  %></p>
 <% end %>
-
+</span>

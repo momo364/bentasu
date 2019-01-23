@@ -1,8 +1,9 @@
+<div class = "top">
 <h1>おかず予定数変更</h1>
 
 <%= render "shared/errors", obj: @sale %>
 <%= form_for @sale do |form| %>
-<table class = "attr" >
+<table align="center" >
   <tr>
     <td><%= @dish.name %></td>
     <th><%= form.label :planned_number, "予定数" %></th>
@@ -15,3 +16,4 @@
 </table>
 <p><%= form.submit "更新" %></p>
 <% end %>
+</div>

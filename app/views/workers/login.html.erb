@@ -1,8 +1,8 @@
-
+<div class="top">
 <% if flash.alert %><p class ="alert"><%= flash.alert %></p><% end %>
-<p>管理者用ログインページ</p>
+<h1>管理者用ログインページ</h1>
 <%= form_tag :session do %>
-<table id = "login_form">
+<table id = "login_form" align="center">
   <tr>
     <td style="text-align:right">ユーザ名：</td>
     <td><%= text_field_tag "username","",style: "width: 200px" %></td>
@@ -19,3 +19,4 @@
 <% end %> 
 
 <p><%= link_to "トップページへ戻る", :root %></p>
+</div>
