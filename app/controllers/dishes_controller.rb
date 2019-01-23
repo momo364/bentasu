@@ -14,7 +14,8 @@ class DishesController < ApplicationController
     end
     @dish = Dish.new
     @dish.allergy_dishes.build
-    @dish.build_sale_management
+#    @dish.sale_management.build
+    @dish.build_dish_image
     if params[:format].in?(["jpg", "png", "gif"])
       send_image
     else
@@ -48,12 +49,15 @@ class DishesController < ApplicationController
 
   def new
     @dish = Dish.new
-    @dish.allergy_dishes.build
+#    @dish.allergy_dishes.build
+#    @dish.sale_management.build
   end
   
   def create
     @dish = Dish.new(dish_params)
     if @dish.save
+      @sale = SaleManagement.new
+      @dish.sale_management = @sale
       redirect_to :dishes, notice: "登録しました"
     else
       redirect_to 'index'
@@ -61,7 +65,7 @@ class DishesController < ApplicationController
   end
 
   def dish_params
-    params.require(:dish).permit(:name,:price,:calorie,{:allergy_ids => []},:category,:potential)
+    params.require(:dish).permit(:name,:price,:calorie,{:allergy_ids => []},:category,:potential,image_atributes: [:destroy,:id,:uploaded_image])
   end
 
   def select

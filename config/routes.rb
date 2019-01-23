@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   end
   resources :dishes do
     resources :sale_managements
+    resources :dish_images
     member { patch :select,:unselect,:dish_params,:stop,:start }
     collection { get :selected ,:index_noselect,:search}
   end

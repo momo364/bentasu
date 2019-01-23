@@ -6,7 +6,7 @@ class CreateDishes < ActiveRecord::Migration
       t.integer :calorie, null: false #カロリー
       t.integer :category, null: false #カテゴリー
       t.boolean :potential,null: false, default: true #生産可能フラグ
-      t.timestamps null: false
+      t.timestamps null: true
     end
   end
 end

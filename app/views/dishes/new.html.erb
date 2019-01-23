@@ -4,6 +4,22 @@
 <% if current_worker.present? && current_worker.admin == true %>
 <%= form_for @dish ,:url => {:action => 'create'} do  |form| %>
 <table align="center" >
+  <%= form.fields_for :dish_image do |imgf| %>
+  <tr>
+    <th><%= imgf.label :uploaded_image %></th>
+    <td>
+      <%= imgf.file_field :uploaded_image %>
+      <% if !imgf.object.new_record? && imgf.object.errors.empty? %>
+      <div>
+        <%= member_image_tag @member, width: 60 %>
+        <%= imgf.check_box :_destroy %>
+        <%= imgf.label :_destroy %>
+        <%= imgf.hidden_field :id %>
+      </div>
+      <% end %>
+    </td>
+  </tr>
+  <% end %>
   <tr>
     <th><%= form.label :name, "料理名" %></th>
     <td><%= form.text_field :name %></td>
