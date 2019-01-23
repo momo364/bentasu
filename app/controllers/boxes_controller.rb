@@ -13,4 +13,15 @@ class BoxesController < ApplicationController
     end
     session[:box_id] << @box.id
   end  
+
+  def destroy
+    @box = Box.find(params[:id])
+    @size = session[:box_id].size
+    0.upto(@size - 1) do |i|
+      if session[:box_id][i] == @box.id
+        session[:box_id].delete(@box.id)
+      end
+    end
+    redirect_to selected_dishes_path,notice:"#{session[:box_id][0]}削除しました"
+  end  
 end

@@ -18,8 +18,18 @@ class DishesController < ApplicationController
     
   end
   
+  def destroy
+    @box = Box.find(params[:id])
+    @size = session[:box_id].size
+    1.upto(@size - 1) do |i|
+      if session[:box_id][i] == @box.id
+        session[:box_id].delete(@box.id)
+      end
+    end
+    redirect_to selected_dishes_path,notice:"削除しました"
+  end  
+
   def index_noselect
-   
       @dishes = Dish.order(:id).where(potential:true)
   end
 
@@ -67,7 +77,10 @@ class DishesController < ApplicationController
   def selected
     if session[:box_id] != nil
     @len = session[:box_id].size
-    @box = Box.find(session[:box_id][@len - 1])
+    if @len == 0
+      @selectdishes = nil and return
+    end
+    #@box = Box.find(session[:box_id][@len - 1])
     @boxarr = []
     session[:box_id].each do |s|
       @boxarr << Box.find(s)

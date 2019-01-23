@@ -1,6 +1,44 @@
 class OrdersController < ApplicationController
   def create
+    @outdishes = []
     @len = session[:box_id].size
+      0.upto(@len - 1) do |i|
+        @box = Box.find(session[:box_id][i])
+        #@box.order_id = @order.id
+        #@box.save
+        @boxdish = BoxDish.where(box_id:@box.id)
+        @boxdish.each do |boxdish|
+          @sale = SaleManagement.where(dish_id:boxdish.dish_id).last
+          if @outdishes[boxdish.dish_id] == nil
+            @outdishes[boxdish.dish_id] = 1
+          else
+            @outdishes[boxdish.dish_id] = @outdishes[boxdish.dish_id] + 1
+          end 
+          #@orderednum = @sale.ordered_number
+          #@orderednum = @orderednum + 1
+          #@sale.ordered_number = @orderednum
+          #@sale.save
+        end
+      end
+    @dishrec = []
+    @nstring = ""
+    @out = true 
+    @length = @outdishes.size
+    1.upto(@length - 1) do |i|
+      if @outdishes[i] != nil
+        @sale = SaleManagement.where(dish_id:i).last
+        if @sale.planned_number < (@sale.ordered_number + @outdishes[i])
+          @dishrec[i] = @sale.ordered_number + @outdishes[i] - @sale.planned_number
+          @out = false
+          @dish = Dish.find(i)
+          @nstring += "#{@dish.name}は#{@dishrec[i]}個以上 "
+        end
+      end 
+    end
+    if @out == false
+      @nstring += "注文できません"
+      redirect_to selected_dishes_path,notice:@nstring and return
+    end
     @order = Order.new(customer_id: current_customer.id, status: false, time: DateTime.now)
     if @order.save
       0.upto(@len - 1) do |i|

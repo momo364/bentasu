@@ -14,6 +14,8 @@
         <% @pricesum = @pricesum + d.price %>
       <% end %>
       </td>
+      <% @box = Box.find(session[:box_id][@cnt-1]) %>
+      <td><%= link_to "削除",box_path(@box),method: :delete,data:{confirm: "本当に削除しますか？"} %></td>
     </tr>
     <% end %>
     </table>
@@ -30,3 +32,4 @@
   <p><%= link_to "お弁当を追加する",{ :controller => "customers", :action => "login" }  %></p>
 <% end %>
 </span>
+
