@@ -1,4 +1,5 @@
 class Customer < ActiveRecord::Base
+  include EmailAddressChecker
   has_many :orders, dependent: :destroy
   validates :name, presence: true,
     length: {minumum: 1,maximum: 20,allow_blank: true}
